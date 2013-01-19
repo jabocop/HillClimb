@@ -34,7 +34,8 @@ describe "Authentication" do
         click_button "Sign in"
       end
 
-      it { should have_selector('title', text: user.name) }
+      it { should have_selector('title', text: full_title(user.name)) }
+      it { should have_link('Users',    href: users_path) }
       it { should have_link('Profile', href: user_path(user)) }
       it { should have_link('Settings', href: edit_user_path(user)) }
       it { should have_link('Sign out', href: signout_path) }
@@ -75,6 +76,12 @@ describe "Authentication" do
           before { put user_path(user) }
           specify { response.should redirect_to(signin_path) }
         end
+        
+        describe "visiting the user index" do
+          before { visit users_path }
+          it { should_not have_selector('title', text: full_title('All users')) }
+        end
+        
       end
     end
     
@@ -92,6 +99,8 @@ describe "Authentication" do
         before { put user_path(wrong_user) }
         specify { response.should redirect_to(root_path) }
       end
+      
+      
     end
   end
 end

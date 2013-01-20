@@ -8,4 +8,8 @@ FactoryGirl.define do
       admin true
     end
   end
+  
+  factory :track do
+    name "Test track"
+  end
 end

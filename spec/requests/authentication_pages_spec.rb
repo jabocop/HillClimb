@@ -40,6 +40,36 @@ describe "Authentication" do
       it { should have_link('Settings', href: edit_user_path(user)) }
       it { should have_link('Sign out', href: signout_path) }
       it { should_not have_link('Sign in', href: signin_path) }
+      it { should_not have_link('Tracks', href: tracks_path) }
+      
+      describe "visiting tracks index page" do
+        before {visit tracks_path}
+        it {should_not have_selector('title',text:full_title('All tracks'))}  
+      end
+      
+      describe "visiting tracks new page" do
+        before {visit new_track_path}
+        it {should_not have_selector('title',text:full_title('New track'))}  
+      end
+      
+      
+    end
+    
+    describe "as admin" do
+      let(:admin) { FactoryGirl.create(:admin) }
+      before do
+        sign_in admin
+      end
+      it { should have_link('Tracks', href: tracks_path)}
+      
+      describe "visiting tracks index page" do
+        before {visit tracks_path}
+        it {should have_selector('title',text:full_title('All tracks'))}  
+      end
+      describe "visiting tracks index page" do
+        before {visit new_track_path}
+        it {should have_selector('title',text:full_title('New track'))}  
+      end
     end
   end
   describe "authorization" do
@@ -82,6 +112,13 @@ describe "Authentication" do
           it { should_not have_selector('title', text: full_title('All users')) }
         end
         
+      end
+      
+      describe "in the Tracks contrller" do
+        describe "visiting the index page" do
+          before {visit tracks_path}
+          it {should_not have_selector('title',text:'All tracks')}
+        end
       end
     end
     

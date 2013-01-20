@@ -1,4 +1,6 @@
 HillClimbHighscore::Application.routes.draw do
+  
+  resources :tracks, only: [:index,:new,:create]
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
 

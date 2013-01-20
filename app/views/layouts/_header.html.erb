@@ -5,6 +5,16 @@
         <ul class="nav pull-right">
           <li><%= link_to "Home",    root_path %></li>
          <% if signed_in? %>
+            <% if current_user.admin? %>
+            <li id="fat-menu" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Admin <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "Tracks", tracks_path %></li>
+              </ul>
+            </li>
+            <% end %>
             <li><%= link_to "Users", users_path  %></li>
             <li id="fat-menu" class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">

@@ -1,0 +1,8 @@
+<% provide(:title, 'All tracks') %>
+<h1>All tracks</h1>
+
+<ul class="tracks">
+      <%= render @tracks %>
+    	<%= link_to "New track", new_track_path,class:"btn btn-large btn-primary" %>
+  
+</ul>
